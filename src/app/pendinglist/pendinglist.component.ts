@@ -8,7 +8,7 @@ import { ListService } from 'src/service/list.service';
   styleUrls: ['./pendinglist.component.css']
 })
 export class PendinglistComponent implements OnInit {
-
+  test
   pendingTasks:Task[] = [];
 
   constructor(private _listService:ListService) { }
