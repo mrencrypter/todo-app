@@ -8,13 +8,38 @@ import { ListService } from 'src/service/list.service';
   styleUrls: ['./pendinglist.component.css']
 })
 export class PendinglistComponent implements OnInit {
-  test
+  
   pendingTasks:Task[] = [];
 
   constructor(private _listService:ListService) { }
 
   ngOnInit() {
     this.pendingTasks = this._listService.getTasks(false);
+    this._listService.taskAdded.subscribe(
+      (tasks: Task[]) => {
+        this.pendingTasks = tasks;
+      }
+    );
+
+    this._listService.taskDeleted.subscribe(
+      (tasks:Task[]) => {
+        this.pendingTasks = tasks.filter(x => x.IsCompleted === false);
+      }
+    );
+
+    this._listService.taskCompleted.subscribe(
+      (tasks:Task[]) => {
+        this.pendingTasks = tasks.filter(x => x.IsCompleted === false);
+      }
+    )
+  }
+
+  onTaskDelete(taskId:number){
+    this._listService.deleteTask(taskId);
+  }
+
+  onTaskComplete(taskId:number){
+    this._listService.completeTask(taskId);
   }
 
 }

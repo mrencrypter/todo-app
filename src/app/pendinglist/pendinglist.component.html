@@ -1,4 +1,10 @@
 <ul class="list-group-flush">
   <h3>Pending Task</h3>
-  <li *ngFor="let task of pendingTasks" class="list-group-item">{{task.Message}}</li>
+  <li *ngFor="let task of pendingTasks" class="list-group-item d-flex">
+    <div class="col-8">{{task.Message}}</div>
+    <div class="col-4">
+      <span class="col-6"><a href="#" (click)="onTaskDelete(task.Id)">Delete</a></span>
+      <span class="col-6"><a href="#" (click)="onTaskComplete(task.Id)">Complete</a></span>
+    </div>
+  </li>
 </ul>

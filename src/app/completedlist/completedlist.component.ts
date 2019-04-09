@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/model/task.model';
 import { ListService } from 'src/service/list.service';
+import { isComponent } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-completedlist',
@@ -15,6 +16,11 @@ export class CompletedlistComponent implements OnInit {
 
   ngOnInit() {
     this.completedTasks = this._listService.getTasks(true);
+    this._listService.taskCompleted.subscribe(
+      (tasks: Task[]) => {
+        this.completedTasks = tasks.filter(x => x.IsCompleted === true);
+      }
+    )
   }
 
 }
