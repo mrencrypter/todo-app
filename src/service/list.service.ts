@@ -1,13 +1,15 @@
 import { Task } from 'src/model/task.model';
 import { EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export class ListService{
+    test:string;
 
     listId:number = 0;
     listItems:Task[] = [];
-    taskAdded = new EventEmitter<Task[]>();
-    taskDeleted = new EventEmitter<Task[]>();
-    taskCompleted = new EventEmitter<Task[]>();
+    taskAdded = new Subject<Task[]>();
+    taskDeleted = new Subject<Task[]>();
+    taskCompleted = new Subject<Task[]>();
 
     generateNextId(){
         return this.listId++;
@@ -27,18 +29,18 @@ export class ListService{
             Message: message,
             IsCompleted : false
         });
-        this.taskAdded.emit(this.listItems);
+        this.taskAdded.next(this.listItems);
     }
 
     deleteTask(taskId:number){
        let taskIndex = this.listItems.findIndex(x => x.Id === taskId);
        delete this.listItems[taskIndex];
-       this.taskDeleted.emit(this.listItems);
+       this.taskDeleted.next(this.listItems);
     }
 
     completeTask(taskId:number){
         this.listItems.find(x => x.Id === taskId).IsCompleted = true;
-        this.taskCompleted.emit(this.listItems);
+        this.taskCompleted.next(this.listItems);
 
     }
 }

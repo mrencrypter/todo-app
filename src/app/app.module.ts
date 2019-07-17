@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -10,11 +9,7 @@ import { PendinglistComponent } from './pendinglist/pendinglist.component';
 import { CompletedlistComponent } from './completedlist/completedlist.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListService } from 'src/service/list.service';
-
-const appRoutes: Routes = [
-  {path: '', component:TasklistComponent},
-  {path: 'addtask', component:AddtaskComponent}
-];
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +23,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [
     ListService
